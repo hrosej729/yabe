@@ -1,6 +1,7 @@
 package controllers;
 
 import play.*;
+import play.data.validation.Required;
 import play.mvc.*;
 
 import java.util.*;
@@ -28,9 +29,13 @@ public class Application extends Controller {
         renderArgs.put("blogBaseline", Play.configuration.getProperty("blog.baseline"));
     }
 
-    public static void postComment(Long postId, String author, String content) {
+    public static void postComment(Long postId, @Required String author, @Required String content) {
         Post post = Post.findById(postId);
+        if (validation.hasErrors()) {
+            render("Application/show.html", post);
+        }
         post.addComment(author, content);
+        flash.success("Thanks for posting %s", author);
         show(postId);
     }
 
