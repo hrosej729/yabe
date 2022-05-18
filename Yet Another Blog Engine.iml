@@ -8,7 +8,10 @@
             <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" />
             <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
         </content>
-                <content url="file:///Applications/play-1.5.3/modules/docviewer">
+                <content url="file:///Applications/play-1.5.3/modules/crud">
+            <sourceFolder url="file:///Applications/play-1.5.3/modules/crud/app" isTestSource="false" />
+        </content>
+        <content url="file:///Applications/play-1.5.3/modules/docviewer">
             <sourceFolder url="file:///Applications/play-1.5.3/modules/docviewer/app" isTestSource="false" />
         </content>
 
