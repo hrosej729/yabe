@@ -7,14 +7,19 @@ import play.data.validation.*;
 import play.db.jpa.*;
 
 @Entity
-public class Like extends Model {
+public class reactLike extends Model {
+
+    @Required
+    public String author;
 
     @ManyToOne
     @Required
     public Post post;
 
-    public Like(Post post) {
+    public reactLike(Post post, String author) {
         this.post = post;
+        this.author = author;
+
     }
 
 }

@@ -8,6 +8,10 @@
         <span class="post-author">by ${_post.author.fullname}</span>,
         <span class="post-date">${_post.postedAt.format('dd MMM yy')}</span>
     #{if _as != 'full'}
+        <span class="post-likes">
+                &nbsp;&nbsp;|&nbsp; ${_post.likes.size() ?: 'no'}
+            like${_post.likes.size().pluralize()}
+        </span>
         <span class="post-comments">
                 &nbsp;&nbsp;|&nbsp; ${_post.comments.size() ?: 'no'}
             comment${_post.comments.size().pluralize()}
@@ -34,7 +38,20 @@
 </div>
 
 #{if _as == 'full'}
-<div class="comments">
+
+<div class="likes">
+    <h3>
+    ${_post.likes.size() ?: 'no'}
+        like${_post.likes.size().pluralize()}
+    </h3>
+    #{list items:_post.likes, as:'like'}
+        <div class="like">
+            <div class="like-metadata">
+                <span class="like-author">by ${like.author},</span>
+            </div>
+        </div>
+    #{/list}
+
     <h3>
     ${_post.comments.size() ?: 'no'}
         comment${_post.comments.size().pluralize()}

@@ -58,6 +58,16 @@ public class Application extends Controller {
         Cache.delete(randomID);
         show(postId);
     }
+
+    public static void reactWithLike(
+            Long postId,
+            @Required(message="Author is required") String author)
+    {
+        Post post = Post.findById(postId);
+        post.addLike(author);
+        flash.success("Thanks for reacting %s", author);
+        show(postId);
+    }
     public static void listTagged(String tag) {
         List<Post> posts = Post.findTaggedWith(tag);
         render(tag, posts);
