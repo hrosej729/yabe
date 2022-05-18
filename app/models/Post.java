@@ -27,9 +27,13 @@ public class Post extends Model {
     public List<Comment> comments;
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Tag> tags;
+
+    @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+    public List<Like> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
         this.tags = new TreeSet<Tag>();
+        this.likes = new ArrayList<Like>();
         this.author = author;
         this.title = title;
         this.content = content;
@@ -53,6 +57,7 @@ public class Post extends Model {
         this.save();
         return this;
     }
+
 
     public Post previous() {
         return Post.find("postedAt < ?1 order by postedAt desc", postedAt).first();
