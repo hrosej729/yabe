@@ -4,3 +4,6 @@ require:
     - play -> crud
     - play
     - play -> docviewer
+
+    # Import the secure module
+    - secure
