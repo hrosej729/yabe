@@ -24,6 +24,17 @@
 
 #{display post:post, as:'full' /}
 
+#{form @Application.reactWithLike(post.id)}
+
+<p>
+    <label for="author">Your name: </label>
+    <input type="text" name="author" id="author" />
+</p>
+<p>
+    <input type="submit" value="Like" />
+</p>
+#{/form}
+
 <h3>Post a comment</h3>
 
 #{form @Application.postComment(post.id)}
@@ -31,7 +42,7 @@
     #{ifErrors}
         <p class="error">
             ${errors[0]}
-        </p>p>
+        </p>
     #{/ifErrors}
 
 <p>

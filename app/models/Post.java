@@ -27,15 +27,18 @@ public class Post extends Model {
     public List<Comment> comments;
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Tag> tags;
+
+    @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+    public List<reactLike> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
         this.tags = new TreeSet<Tag>();
+        this.likes = new ArrayList<reactLike>();
         this.author = author;
         this.title = title;
         this.content = content;
         this.postedAt = new Date();
     }
-
     public Post tagItWith(String name) {
         tags.add(Tag.findOrCreateByName(name));
         return this;
@@ -54,6 +57,12 @@ public class Post extends Model {
         return this;
     }
 
+    public Post addLike(String author) {
+        reactLike newLike = new reactLike(this, author).save();
+        this.likes.add(newLike);
+        this.save();
+        return this;
+    }
     public Post previous() {
         return Post.find("postedAt < ?1 order by postedAt desc", postedAt).first();
     }

@@ -54,11 +54,20 @@ public class Application extends Controller {
             render("Application/show.html", post, randomID);
         }
         post.addComment(author, content);
-        flash.success("Thanks for posting %s", author);
+        flash.success("Thanks for posting, %s!", author);
         Cache.delete(randomID);
         show(postId);
     }
 
+    public static void reactWithLike(
+            Long postId,
+            @Required(message="Author is required") String author)
+    {
+        Post post = Post.findById(postId);
+        post.addLike(author);
+        flash.success("Thanks for liking, %s!", author);
+        show(postId);
+    }
     public static void listTagged(String tag) {
         List<Post> posts = Post.findTaggedWith(tag);
         render(tag, posts);

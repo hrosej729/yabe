@@ -85,3 +85,19 @@ Comment(c3):
     This post is useless ?
   postedAt:       2009-04-05
   post:           secondBobPost
+
+reactLike(l1):
+  author:          Tom
+  post:            secondBobPost
+
+reactLike(l2):
+    author:        Jeff
+    post:          firstBobPost
+
+reactLike(l3):
+  author:          Dom
+  post:            secondBobPost
+
+reactLike(l4):
+  author:          Mom
+  post:            secondBobPost
