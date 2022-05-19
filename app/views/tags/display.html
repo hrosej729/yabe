@@ -11,9 +11,12 @@
         <span class="post-likes">
                 &nbsp;&nbsp;|&nbsp; ${_post.likes.size() ?: 'no'}
             like${_post.likes.size().pluralize()}
-            #{if _post.likes}
-                , latest by ${_post.likes[0].author}
+            #{if _post.likes.size() > 1}
+                , by ${_post.likes[0].author} and more
             #{/if}
+            #{elseif _post.likes.size()}
+                , by ${_post.likes[0].author}
+            #{/elseif}
         </span>
         <span class="post-comments">
                 &nbsp;&nbsp;|&nbsp; ${_post.comments.size() ?: 'no'}
@@ -85,5 +88,5 @@
 
 </div>
 
-<h3>React to ${_post.author.fullname}'s post</h3>
+<h3>Like ${_post.author.fullname}'s post</h3>
 #{/if}
