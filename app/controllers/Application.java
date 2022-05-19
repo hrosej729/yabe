@@ -73,4 +73,9 @@ public class Application extends Controller {
         render(tag, posts);
     }
 
+    public static void listCreated(String creator) {
+        List<Post> posts = Post.findMadeBy(creator);
+        render(creator, posts);
+    }
+
 }

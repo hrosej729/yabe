@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+import java.util.Set;
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -28,12 +29,15 @@ public class Post extends Model {
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Tag> tags;
 
+    @ManyToMany(cascade=CascadeType.PERSIST)
+    public Set<Profile> profiles;
     @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
     public List<reactLike> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
         this.tags = new TreeSet<Tag>();
         this.likes = new ArrayList<reactLike>();
+        this.profiles = new TreeSet<Profile>();
         this.author = author;
         this.title = title;
         this.content = content;
@@ -50,6 +54,16 @@ public class Post extends Model {
         ).bind("tags", tags).bind("size", tags.length).fetch();
     }
 
+    public Post profileIs(String creators) {
+        profiles.add(Profile.findOrCreateByName(creators));
+        return this;
+    }
+
+    public static List<Post> findMadeBy(String profile) {
+        return Post.find(
+                "select distinct p from Post p join p.profiles as pf where pf.creator = ?1", profile
+        ).fetch();
+    }
     public Post addComment(String author, String content) {
         Comment newComment = new Comment(this, author, content).save();
         this.comments.add(newComment);
