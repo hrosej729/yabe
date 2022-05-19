@@ -21,7 +21,7 @@ GET     /posts/{tag}                            Application.listTagged
 GET     /profiles/{creator}                     Application.listCreated
 
 # Likes
-POST     /like/post-liked                                   Application.reactWithLike
+POST     /like/post-like                        Application.reactWithLike
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

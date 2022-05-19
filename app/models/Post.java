@@ -32,11 +32,11 @@ public class Post extends Model {
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Profile> profiles;
     @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
-    public List<reactLike> likes;
+    public List<ReactLike> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
         this.tags = new TreeSet<Tag>();
-        this.likes = new ArrayList<reactLike>();
+        this.likes = new ArrayList<ReactLike>();
         this.profiles = new TreeSet<Profile>();
         this.author = author;
         this.title = title;
@@ -72,7 +72,7 @@ public class Post extends Model {
     }
 
     public Post addLike(String author) {
-        reactLike newLike = new reactLike(this, author).save();
+        ReactLike newLike = new ReactLike(this, author).save();
         this.likes.add(newLike);
         this.save();
         return this;
