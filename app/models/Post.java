@@ -1,6 +1,7 @@
 package models;
 
 import java.util.*;
+import java.util.Set;
 import javax.persistence.*;
 
 import play.db.jpa.*;
@@ -27,13 +28,15 @@ public class Post extends Model {
     public List<Comment> comments;
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Tag> tags;
-
-    @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
-    public List<reactLike> likes;
+    @ManyToMany(cascade=CascadeType.PERSIST)
+    public Set<Profile> profiles;
+    @OneToMany(mappedBy="post", cascade=CascadeType.REMOVE)
+    public List<ReactLike> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
         this.tags = new TreeSet<Tag>();
-        this.likes = new ArrayList<reactLike>();
+        this.likes = new ArrayList<ReactLike>();
+        this.profiles = new TreeSet<Profile>();
         this.author = author;
         this.title = title;
         this.content = content;
@@ -50,15 +53,24 @@ public class Post extends Model {
         ).bind("tags", tags).bind("size", tags.length).fetch();
     }
 
+    public Post profileIs(String creators) {
+        profiles.add(Profile.findOrCreateByName(creators));
+        return this;
+    }
+
+    public static List<Post> findMadeBy(String profile) {
+        return Post.find(
+                "select distinct p from Post p join p.profiles as pf where pf.creator = ?1", profile
+        ).fetch();
+    }
     public Post addComment(String author, String content) {
         Comment newComment = new Comment(this, author, content).save();
         this.comments.add(newComment);
         this.save();
         return this;
     }
-
     public Post addLike(String author) {
-        reactLike newLike = new reactLike(this, author).save();
+        ReactLike newLike = new ReactLike(this, author).save();
         this.likes.add(newLike);
         this.save();
         return this;
@@ -66,7 +78,6 @@ public class Post extends Model {
     public Post previous() {
         return Post.find("postedAt < ?1 order by postedAt desc", postedAt).first();
     }
-
     public Post next() {
         return Post.find("postedAt > ?1 order by postedAt asc", postedAt).first();
     }

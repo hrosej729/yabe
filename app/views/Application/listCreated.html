@@ -1,0 +1,67 @@
+#{extends 'main.html' /}
+#{set title:'Posts made by ' + profile /}
+
+*{********* Title ********* }*
+
+<h2 style="color:#f5c2cc;">${creator}'s Profile</h2>
+
+<hr>
+
+#{if posts.size() > 1}
+<h3>There are ${posts.size()} posts made by ${creator}</h3>
+#{/if}
+#{elseif posts}
+<h3>There is 1 post made by ${creator}</h3>
+#{/elseif}
+#{else}
+<h3>No posts made by ${creator}</h3>
+#{/else}
+
+*{********* Posts list *********}*
+
+<div class="older-posts">
+#{list items:posts, as:'post'}
+        #{display post:post, as:'teaser' /}
+    #{/list}
+</div>
+<hr>
+*{********* Comments ********* }*
+
+#{if comments.size() > 1}
+<h3>There are ${posts.comments.size()} posts commented on by ${creator}</h3>
+#{/if}
+#{elseif comments}
+<h3>There is 1 post commented on by ${creator}</h3>
+#{/elseif}
+#{else}
+<h3>No posts commented on by ${creator}</h3>
+#{/else}
+
+*{********* Comments list *********}*
+
+<div class="older-posts">
+#{list items: comments, as:'comment'}
+        #{display post: comment, as: 'teaser' /}
+    #{/list}
+</div>
+<hr>
+
+*{********* Likes ********* }*
+
+#{if likes.size() > 1}
+<h3>There are ${likes.size()} posts liked by ${creator}</h3>
+#{/if}
+#{elseif likes}
+<h3>There is 1 post liked by ${creator}</h3>
+#{/elseif}
+#{else}
+<h3>No posts liked by ${creator}</h3>
+#{/else}
+
+*{********* Likes list *********}*
+
+<div class="older-posts">
+#{list items: likes, as:'like'}
+        #{display post: like, as: 'teaser' /}
+    #{/list}
+</div>

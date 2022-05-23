@@ -17,6 +17,12 @@ GET     /captcha                                Application.captcha
 # Tags
 GET     /posts/{tag}                            Application.listTagged
 
+# Profiles
+GET     /profiles/{creator}                     Application.listCreated
+
+# Likes
+POST     /like/post-like                        Application.reactWithLike
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
