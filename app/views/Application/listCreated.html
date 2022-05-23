@@ -48,12 +48,20 @@
 
 *{********* Likes ********* }*
 
-#{if posts.likes.size() > 1}
-<h3>There are ${posts.likes.size()} posts liked by ${creator}</h3>
+#{if likes.size() > 1}
+<h3>There are ${likes.size()} posts liked by ${creator}</h3>
 #{/if}
-#{elseif posts.likes}
+#{elseif likes}
 <h3>There is 1 post liked by ${creator}</h3>
 #{/elseif}
 #{else}
 <h3>No posts liked by ${creator}</h3>
 #{/else}
+
+*{********* Likes list *********}*
+
+<div class="older-posts">
+#{list items: likes, as:'like'}
+        #{display post: like, as: 'teaser' /}
+    #{/list}
+</div>

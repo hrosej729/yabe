@@ -74,14 +74,8 @@ public class Application extends Controller {
     public static void listCreated(String creator) {
         List<Post> posts = Post.findMadeBy(creator);
         List<Comment> comments = Comment.findCommentedOnBy(creator);
-        render(creator, comments, posts);
+        List<ReactLike> likes = ReactLike.findLikedBy(creator);
+        render(creator, comments, posts, likes);
     }
-//
-//    public static void listCommented(String creator) {
-//        List<Post> posts = Post.findMadeBy(creator);
-//
-//
-//       // renderTemplate("Application/listCreated.html", creator, , posts);
-//    }
 
 }
