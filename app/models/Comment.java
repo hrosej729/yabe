@@ -32,4 +32,9 @@ public class Comment extends Model {
         this.postedAt = new Date();
     }
 
+    public static List<Comment> findCommentedOnBy(String profile) {
+        return Comment.find(
+                "select p from Post p, Comment c where c.post = p and c.author = ?1", profile
+        ).fetch();
+    }
 }

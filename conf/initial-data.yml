@@ -77,11 +77,11 @@ Post(jeffPost):
     View and a Controller layer.
 
 Comment(c1):
-  author:         Guest
+  author:         Bob
   content:        >
     You are right !
   postedAt:       2009-06-14
-  post:           firstBobPost
+  post:           jeffPost
 
 Comment(c2):
   author:         Mike

@@ -3,7 +3,9 @@
 
 *{********* Title ********* }*
 
-    <h2 style="color:#f5c2cc;">${creator}'s Profile</h2>
+<h2 style="color:#f5c2cc;">${creator}'s Profile</h2>
+
+<hr>
 
 #{if posts.size() > 1}
 <h3>There are ${posts.size()} posts made by ${creator}</h3>
@@ -22,3 +24,36 @@
         #{display post:post, as:'teaser' /}
     #{/list}
 </div>
+<hr>
+*{********* Comments ********* }*
+
+#{if comments.size() > 1}
+<h3>There are ${posts.comments.size()} posts commented on by ${creator}</h3>
+#{/if}
+#{elseif comments}
+<h3>There is 1 post commented on by ${creator}</h3>
+#{/elseif}
+#{else}
+<h3>No posts commented on by ${creator}</h3>
+#{/else}
+
+*{********* Comments list *********}*
+
+<div class="older-posts">
+#{list items: comments, as:'comment'}
+        #{display post: comment, as: '' /}
+    #{/list}
+</div>
+<hr>
+
+*{********* Likes ********* }*
+
+#{if posts.likes.size() > 1}
+<h3>There are ${posts.likes.size()} posts liked by ${creator}</h3>
+#{/if}
+#{elseif posts.likes}
+<h3>There is 1 post liked by ${creator}</h3>
+#{/elseif}
+#{else}
+<h3>No posts liked by ${creator}</h3>
+#{/else}

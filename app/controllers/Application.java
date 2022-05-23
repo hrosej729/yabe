@@ -41,16 +41,15 @@ public class Application extends Controller {
 
     public static void postComment(
             Long postId,
-            @Required(message="Author is required") String author,
-            @Required(message="A message is required") String content,
-            @Required(message="Please type the code") String code,
-            String randomID)
-    {
+            @Required(message = "Author is required") String author,
+            @Required(message = "A message is required") String content,
+            @Required(message = "Please type the code") String code,
+            String randomID) {
         Post post = Post.findById(postId);
         validation.equals(
                 code, Cache.get(randomID)
         ).message("Invalid code. Please type it again");
-        if(validation.hasErrors()) {
+        if (validation.hasErrors()) {
             render("Application/show.html", post, randomID);
         }
         post.addComment(author, content);
@@ -61,21 +60,28 @@ public class Application extends Controller {
 
     public static void reactWithLike(
             Long postId,
-            @Required(message="Author is required") String author)
-    {
+            @Required(message = "Author is required") String author) {
         Post post = Post.findById(postId);
         post.addLike(author);
         flash.success("Thanks for liking, %s!", author);
         show(postId);
     }
+
     public static void listTagged(String tag) {
         List<Post> posts = Post.findTaggedWith(tag);
         render(tag, posts);
     }
-
     public static void listCreated(String creator) {
         List<Post> posts = Post.findMadeBy(creator);
-        render(creator, posts);
+        List<Comment> comments = Comment.findCommentedOnBy(creator);
+        render(creator, comments, posts);
     }
+//
+//    public static void listCommented(String creator) {
+//        List<Post> posts = Post.findMadeBy(creator);
+//
+//
+//       // renderTemplate("Application/listCreated.html", creator, , posts);
+//    }
 
 }
