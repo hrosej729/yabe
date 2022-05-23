@@ -74,7 +74,7 @@
     #{list items:_post.comments, as:'comment'}
         <div class="comment">
             <div class="comment-metadata">
-                <span class="comment-author">by ${comment.author},</span>
+                <span class="comment-author">by <a href="@{Application.listCreated(comment.author)}" style="color: inherit; "target="_blank"> ${comment.author}</a>,</span>
                 <span class="comment-date">
                         ${comment.postedAt.format('dd MMM yy')}
                     </span>
