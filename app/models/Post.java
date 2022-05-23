@@ -30,7 +30,7 @@ public class Post extends Model {
     public Set<Tag> tags;
     @ManyToMany(cascade=CascadeType.PERSIST)
     public Set<Profile> profiles;
-    @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="post", cascade=CascadeType.REMOVE)
     public List<ReactLike> likes;
     public Post(User author, String title, String content) {
         this.comments = new ArrayList<Comment>();
