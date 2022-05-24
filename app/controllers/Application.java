@@ -68,16 +68,12 @@ public class Application extends Controller {
     }
 
     public static void dataDump(){
-        Map<String, Integer> metrics = new HashMap<String, Integer>();
+        Map<String, Long> metrics = new HashMap<String, Long>();
 
-        List<Post> posts = Post.findAll();
-        List<Comment> comments = Comment.findAll();
-        List<ReactLike> likes = ReactLike.findAll();
-
-        metrics.put("Users", 2);
-        metrics.put("Posts", posts.size());
-        metrics.put("Likes", likes.size());
-        metrics.put("Comments", comments.size());
+        metrics.put("Users", User.count());
+        metrics.put("Posts", Post.count());
+        metrics.put("Likes", ReactLike.count());
+        metrics.put("Comments", Comment.count());
 
         renderJSON(metrics);
     }
